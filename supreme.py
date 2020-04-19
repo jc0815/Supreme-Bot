@@ -108,12 +108,12 @@ def checkout(driver):
     
     success = True
     
-    time.sleep(5)
     return driver, success
 
 
 # main function
 def main():
+    start_time = time.time()
     url = URL
     print(url)
     driver = openChrome(url)
@@ -128,6 +128,8 @@ def main():
             print("Error: Payment failed")
     else:
         print("Error: Checkout failed")
+    
+    print("Checkout Time: %s seconds" % (time.time() - start_time))
     time.sleep(3)
     closeChrome(driver)
 
