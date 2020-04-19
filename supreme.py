@@ -35,7 +35,7 @@ def addToCart(driver):
     all_products = driver.find_elements_by_xpath(\
         "//div[@class=\"product-name\"]//a[@class=\"name-link\"]")                          # get all products
     current_product = None                                                                  # initialize product to None
-    for product in all_products:
+    for product in all_products:                                                            # find product
         if product_name.lower() in product.text.lower()\
             or product.text.lower() == product_name.lower():
                 current_product = product
@@ -46,10 +46,15 @@ def addToCart(driver):
         current_product.click()
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,\
             "//img[@alt=\"" + product_colour + "\"]" ))).click()                            # click on product colour
+        
+        size_select = Select(driver.find_element_by_xpath("//select[@id=\"s\"]"))
+        size_select.select_by_visible_text(product_size)                                    # select size
+        
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,\
             "//input[@class=\"button\"]" ))).click()                                        # click on add to cart
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,\
             "//a[@class=\"button checkout\"]" ))).click()                                   # click on check out now
+        
         success = True
     else:
         print("ERROR: Didn't find product")
@@ -70,10 +75,10 @@ def checkout(driver):
             "#order_billing_country" )))                                                    # wait for country
     
     country_select = Select(driver.find_element_by_xpath("//select[@id=\"order_billing_country\"]"))
-    country_select.select_by_visible_text(country)
+    country_select.select_by_visible_text(country)                                          # select country
     
     state_select = Select(driver.find_element_by_xpath("//select[@id=\"order_billing_state\"]"))
-    state_select.select_by_visible_text(province)
+    state_select.select_by_visible_text(province)                                           # select province
             
     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
             "#bo" ))).send_keys(address)                                                    # enter address
@@ -102,9 +107,9 @@ def checkout(driver):
     driver.execute_script("arguments[0].click();", agreement_element)                       # execute script since element is hidden
     
     
-    time.sleep(0.5)
-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
-        By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
+    time.sleep(10)
+    # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
+    #     By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
     success = True
     

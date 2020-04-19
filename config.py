@@ -1,7 +1,7 @@
 product_type = "sweatshirts" # eg, sweatshirts, shirts, jackets
 product_name = "crossover hooded sweatshirt"
 product_colour = "Black"   
-size = "Small"
+product_size = "Large"
 
 name = "Bob Dylan"
 email = "test@gmail.com"
