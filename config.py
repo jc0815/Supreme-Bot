@@ -3,7 +3,7 @@ product_name = "crossover hooded sweatshirt"
 product_colour = "Black"   
 size = "Small"
 
-name = "Bob"
+name = "Bob Dylan"
 email = "test@gmail.com"
 tel = "7784503300"
 country = "CANADA"
@@ -12,8 +12,6 @@ apt_unit = ""
 postal_zip = "V5K 0A1"
 city = "Vancouver"
 province = "BC"
-
-phone = "7789998888"
 
 card_no = "5555 6666 7777 8888"
 card_expiry_month = "03"

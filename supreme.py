@@ -4,6 +4,7 @@ from config import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 
 URL = "https://www.supremenewyork.com/shop/all/" + product_type
 
@@ -52,14 +53,59 @@ def addToCart(driver):
         success = True
     else:
         print("ERROR: Didn't find product")
-                
     
     return driver, success
     
 
 def checkout(driver):
     success = False
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_billing_name" ))).send_keys(name)                                       # enter name
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_email" ))).send_keys(email)                                             # enter email
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_tel" ))).send_keys(tel)                                                 # enter telephone
     
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_billing_country" )))                                                    # wait for country
+    
+    country_select = Select(driver.find_element_by_xpath("//select[@id=\"order_billing_country\"]"))
+    country_select.select_by_visible_text(country)
+    
+    state_select = Select(driver.find_element_by_xpath("//select[@id=\"order_billing_state\"]"))
+    state_select.select_by_visible_text(province)
+            
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#bo" ))).send_keys(address)                                                    # enter address
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#oba3" ))).send_keys(apt_unit)                                                 # enter apt / unit
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_billing_zip" ))).send_keys(postal_zip)                                  # enter zip
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#order_billing_city" ))).send_keys(city)                                       # enter city
+    
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#rnsnckrn" ))).send_keys(card_no)                                              # enter card no
+           
+    card_month_select = Select(driver.find_element_by_xpath("//select[@id=\"credit_card_month\"]"))
+    card_month_select.select_by_visible_text(card_expiry_month)
+    
+    card_year_select = Select(driver.find_element_by_xpath("//select[@id=\"credit_card_year\"]"))
+    card_year_select.select_by_visible_text(card_expiry_year)
+    
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR,\
+            "#orcer" ))).send_keys(card_cvv)                                                # enter card cvv
+    
+    time.sleep(0.5)
+    agreement_xpath = "/html/body/div[2]/div[1]/form/div[2]/div[2]/fieldset/p[2]/label/div/ins"
+    agreement_element = driver.find_element_by_xpath(agreement_xpath)
+    driver.execute_script("arguments[0].click();", agreement_element)
+    
+    
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
+        By.XPATH, "//input[@value=\"process payment\"]"))).click()
+    
+    time.sleep(10)
     return driver, success
 
 
