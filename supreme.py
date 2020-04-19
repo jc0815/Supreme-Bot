@@ -102,6 +102,7 @@ def checkout(driver):
     driver.execute_script("arguments[0].click();", agreement_element)                       # execute script since element is hidden
     
     
+    time.sleep(0.5)
     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
         By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
