@@ -98,14 +98,16 @@ def checkout(driver):
     
     time.sleep(0.5)
     agreement_xpath = "/html/body/div[2]/div[1]/form/div[2]/div[2]/fieldset/p[2]/label/div/ins"
-    agreement_element = driver.find_element_by_xpath(agreement_xpath)
-    driver.execute_script("arguments[0].click();", agreement_element)
+    agreement_element = driver.find_element_by_xpath(agreement_xpath)                       # find agreement element
+    driver.execute_script("arguments[0].click();", agreement_element)                       # execute script since element is hidden
     
     
     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
-        By.XPATH, "//input[@value=\"process payment\"]"))).click()
+        By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
-    time.sleep(10)
+    success = True
+    
+    time.sleep(5)
     return driver, success
 
 
@@ -114,10 +116,15 @@ def main():
     url = URL
     print(url)
     driver = openChrome(url)
-    driver, success = addToCart(driver)
-    if success:
+    driver, cart_success = addToCart(driver)
+    if cart_success:
         print("Checked out success, ready for payment")
-        driver, success = checkout(driver)
+        driver, payment_success = checkout(driver)
+        if payment_success:
+            print("CHECK PAYMENT")
+            # TODO: check order and/or retry
+        else:
+            print("Error: Payment failed")
     else:
         print("Error: Checkout failed")
     time.sleep(3)
