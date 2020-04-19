@@ -108,8 +108,8 @@ def checkout(driver):
     
     
     time.sleep(10)
-    # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
-    #     By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
+        By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
     success = True
     
