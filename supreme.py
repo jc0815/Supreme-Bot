@@ -107,7 +107,6 @@ def checkout(driver):
     driver.execute_script("arguments[0].click();", agreement_element)                       # execute script since element is hidden
     
     
-    time.sleep(10)
     WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
         By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
@@ -127,7 +126,7 @@ def main():
         print("Checked out success, ready for payment")
         driver, payment_success = checkout(driver)
         if payment_success:
-            print("CHECK PAYMENT")
+            print("SOLVE FOR CAPTCHA")
             # TODO: check order and/or retry
         else:
             print("Error: Payment failed")
@@ -135,7 +134,7 @@ def main():
         print("Error: Checkout failed")
     
     print("Checkout Time: %s seconds" % (time.time() - start_time))
-    time.sleep(3)
+    input("Press Enter to continue...")
     closeChrome(driver)
 
 
