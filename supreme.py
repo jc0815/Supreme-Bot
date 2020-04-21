@@ -47,8 +47,9 @@ def addToCart(driver):
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,\
             "//img[@alt=\"" + product_colour + "\"]" ))).click()                            # click on product colour
         
-        size_select = Select(driver.find_element_by_xpath("//select[@id=\"s\"]"))
-        size_select.select_by_visible_text(product_size)                                    # select size
+        if product_has_size:                                                                # checks if product is clothing
+            size_select = Select(driver.find_element_by_xpath("//select[@id=\"s\"]"))
+            size_select.select_by_visible_text(product_size)                                # select size
         
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH,\
             "//input[@class=\"button\"]" ))).click()                                        # click on add to cart
@@ -107,8 +108,8 @@ def checkout(driver):
     driver.execute_script("arguments[0].click();", agreement_element)                       # execute script since element is hidden
     
     
-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
-        By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
+    # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((\
+    #     By.XPATH, "//input[@value=\"process payment\"]"))).click()                          # click on process payment
     
     success = True
     

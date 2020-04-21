@@ -10,6 +10,12 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the req
 pip install -r requirements.txt
 ```
 
+Set up a cronjob:
+```bash
+crontab -e
+13 18 * * 1 /usr/local/bin/python3 /directory/to/Supreme-Bot/supreme.py
+```
+
 Check your system's Chrome version, and download and add the [WebDriver](https://chromedriver.chromium.org/downloads) to the directory accordingly.
 
 

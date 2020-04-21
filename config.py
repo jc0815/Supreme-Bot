@@ -1,7 +1,8 @@
-product_type = "sweatshirts" # eg, sweatshirts, shirts, jackets
-product_name = "crossover hooded sweatshirt"
+product_type = "hats" # eg, sweatshirts, shirts, jackets
+product_name = "Raffia Camp Cap"
 product_colour = "Black"   
-product_size = "Large"
+product_size = "Medium"
+product_has_size = False
 
 name = "Bob Dylan"
 email = "test@gmail.com"
