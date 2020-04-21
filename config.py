@@ -1,6 +1,6 @@
 product_type = "sweatshirts" # eg, sweatshirts, shirts, jackets
 product_name = "Crossover Hooded Sweatshirt"
-product_colour = "Black"   
+product_colour = "black"   
 product_size = "Medium"
 product_has_size = True
 
